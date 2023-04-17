@@ -19,10 +19,10 @@ This looks a bit wierd. But it's pretty useful imo.
 If some things are linked to these values that must be within a certain range, will the entire neural nets eventually show a tendency, similar to interest. Imo, we can build intrisic characteristics for the artificial consciousness.
 This process is shown in pic2.png.
 
-With only diffusion structure, imo it's only possible to achieve abstraction, but not possible to achieve causation. 
+With only diffusion structure, imo it's only possible to achieve abstraction, but not possible to achieve reasoning. 
 Abstraction is only about, when some condition is meeted, then a corresponding result will show with a really big possibility. Let's say in step n, something happens, then with a 90%
 of probability in step n+m, something else happens. If the neural net is trained with some earlier result as input and some later result as label, it may learn from itself. It feels like the model distills itself. This can help the model get the same result in less steps.
-The training result looks like abstraction or correlationship, but it's never mathematically causation.
+The training result looks like abstraction or correlationship, but it's never mathematically reasoning.
 
 
 So, what is unsolved so far.
