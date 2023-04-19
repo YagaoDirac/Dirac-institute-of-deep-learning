@@ -24,6 +24,9 @@ Abstraction is only about, when some condition is meeted, then a corresponding r
 of probability in step n+m, something else happens. If the neural net is trained with some earlier result as input and some later result as label, it may learn from itself. It feels like the model distills itself. This can help the model get the same result in less steps.
 The training result looks like abstraction or correlationship, but it's never mathematically reasoning.
 
+<update 2023 apr 19>
+Is curiosity a stand-alone concept? When I tried to figure out how this infinite steps diffusion model can achieve curiosity, I found it out from myself what I care is if something is useful. It's not about atractive by something new, it's by something useful. I'm chasing the productiveness. If curiosity is only the superficial, but values is the intrinsic, then it should be achieved by training not by structure or hard code from outside.
+</update 2023 apr 19>
 
 So, what is unsolved so far.
 Although diffusion models work super well in image generation, but in my design, I don't know how to make this system to do any generation, especially when effection should be also considered.
