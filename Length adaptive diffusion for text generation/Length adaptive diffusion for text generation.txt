@@ -1,0 +1,61 @@
+Length adaptive diffusion for text generation
+
+yagaodirac
+twitter:yagaodirac
+github.com/yagaodirac/dirac-institute-of-deep-learning
+
+(No illustration now. If you need some, let me know)
+
+Now, the dominating method for text generation is something called regression(if I didn't mess up). The basical idea is to predict what is the most likely next word according to what should be told and what words are already generated. This requires the neural nets to organize the sentence in its inner space in order to get the first word generated correctly.
+The issue is that, now the inner representation is literally a black box. For now we have no way to tell if the neural nets is ready to generate the first word. If the words and their corresponding probablities are presented together, then if the first word is only with a 30%, it's not guaranteed to be the correct first word.
+
+So, we need a method to let the neural nets correct what it already generated. 
+My idea is diffusion.
+
+But the compatibility does not exist between text generation and diffusion algorithm, unless, the length of the text is adaptive.
+
+Here's the idea. Some mechanism is needed with the text itself to denote if a space is needed or some word should be remove and the words on the sides should be moved adjacently. This needs to be done by hard coded code outside the neural nets.
+
+My idea is, some notes should be generated along with the words(I assume the words are represented with word embedded vectors). The format can be like:
+tensor of words, shape : sequence length * embedding dimention
+tensor of needing a space for extra word, shape : sequence length + 1
+tensor of deleting this word, shape : sequence length
+
+The "tensor of words" is the same as what is widely used in the "transformer decoder llm"s. 
+The "tensor of needing a space for extra word". If the case is:
+"a b c" with [0.1, 0.2, 0.9, 0.1], then the outter code should change the sequence to "a b *some random initialized word here* c" 
+The "tensor of deleting this word" is similar. If the case is:
+"a b c" with [0.2, 0.9, 0.1], then the outter code should change the sequence to "a c".
+The last 2 tensors are generated with a sigmoid function as activation function. The same as binary classifier.
+Only the sequence itself is remained for the next step. The other 2 are generated only for the outter code and are newly generated on each step.
+
+But in order to take use of this structure, the training process should also varies a bit. But it can be done easily with self-supervised method.
+Let's say for a sequence of "a b c", firstly it's translated with word embedded. The result is a 3*2 tensor. There are 3 direction of diffusions can be applied to the sequence. For each step, any number of direction of diffusions can be applied.
+
+Direction 1: Noise. Just like the tranditional diffusion algorithm that is now widely used in the image generation, noise can be gradually applied to the word embedded result, just like noise is applied to the rgb value of each pixel.
+The input can be like: inner representation + "a b c"with heavier noise.
+The label can be like: "a b c"with lighter noise + [0, 0, 0, 0] + [0, 0, 0].
+
+Direction 2: Removing words. Comparing to "a c", "a b c" is longer. "a c" with [0, 1, 0] means something needs to be added in between a and c. Training is the reverse process of generation, so:
+The input can be like: inner representatino + "a c"
+The label can be like: "a c" + [0, 1, 0] + [0, 0].
+The length of sequence of input and label are the same.
+The second part of label looks like a one-hot vector but it's not. If multiple words are removed, then multiple 1s appear.
+
+Direction 3: Adding words. Similar to direction 2, "a b d c" has a extra "d" comparing to "a b c". 
+The input can be like: inner representatino + "a b d c"
+The label can be like: "a b d c" + [0, 0, 0, 0, 0] + [0, 0, 1, 0].
+The length of sequence of input and label are the same.
+The third part of label looks like a one-hot vector but it's not. If multiple words are added, then multiple 1s appear.
+
+Notice:
+Each input has the same sequence length with its label. The real length change is done with outter hard coded code between each step.
+The 0s and 1s are not really 0s and 1s. They are output of sigmoid functions. So they are always between 0 and 1 and never equal to either 0 or 1. I use 0 and 1 only for simplicity.
+When adding new words with hard code, the new words need to be initialized to something. Something can be [0, 0, ... , 0], or something else. Maybe this initialization needs some careful test. After adding it, the neural net will take care of the newly added word.
+
+
+What's more?
+I also believe some similar trick can be developped to help image generation. 
+The case is like: when some pixels need to be move a bit, now the neural net needs to regenerate the whole combination in the new position. But if we also use some similar trick to help the neural net, it should be way easier. I believe this can help a lot in video generation with the consistancy.
+
+
