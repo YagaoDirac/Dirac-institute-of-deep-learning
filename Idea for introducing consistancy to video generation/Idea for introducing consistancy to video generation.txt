@@ -1,0 +1,14 @@
+Idea for introducing consistancy to video generation
+
+yagaodirac
+twitter:yagaodirac
+github.com/yagaodirac/dirac-institute-of-deep-learning
+
+
+In my previous article of "Length adaptive diffusion for text generation", I mentioned it's possible to add some extra "command notation" to let outter hard coded code to help. This method fits the instructions which neural nets are not good at. In that article, the extra command notation allows the code to change the length of the "being generating" text, or "being diffused" text.
+A similar idea also should work for video generation. If the neural nets are trained to also generate a distortion map for each step, it's possible to "move" pixels in short distance. This can help improve the consistancy in video generation.
+For now, the neural nets literally redo the generation in the new position. It refers only very limited parts from the previous result, at least it doesn't take use of the pixels enough.
+
+The basic idea is very similar to diffusion.
+In a traditional diffusion image generation, training data is like "text label" + "image with noise" for each step. In my idea, the training data should also contain a distortion map, and be like "text label" + "image with noise and a bit distortion" + "reversed distortion map", also for each step as traditional diffusion.
+But this idea is only for one frame, I don't know what would happen if the diffusion algo is applied to video. I maybe consume way more memory and not very practical. If the also generates earlier frame and then generates later frames and never touches the earlier ones any more, I don't know if my idea still works. I mean, if something bad is generated in a earlier frame, the neural nets may not be able to correct it in later frames. It feels like generating left first and then right while never touching the left pixels. Or maybe "multiple steps" for video diffusion would solve this.
