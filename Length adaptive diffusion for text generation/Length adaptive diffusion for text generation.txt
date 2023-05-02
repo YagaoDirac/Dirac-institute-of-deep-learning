@@ -6,6 +6,13 @@ github.com/yagaodirac/dirac-institute-of-deep-learning
 
 (No illustration now. If you need some, let me know)
 
+<update 2023 may 2>
+LLMs based on "1 by 1 word generation" method sometimes go wrong. People already noticed this and try do figure out the reason. Here's one:
+https://arxiv.org/abs/2304.13734
+The Internal State of an LLM Knows When its Lying
+Amos Azaria, Tom Mitchell
+</update 2023 may 2>
+
 Now, the dominating method for text generation is something called regression(if I didn't mess up). The basical idea is to predict what is the most likely next word according to what should be told and what words are already generated. This requires the neural nets to organize the sentence in its inner space in order to get the first word generated correctly.
 The issue is that, now the inner representation is literally a black box. For now we have no way to tell if the neural nets is ready to generate the first word. If the words and their corresponding probablities are presented together, then if the first word is only with a 30%, it's not guaranteed to be the correct first word.
 
