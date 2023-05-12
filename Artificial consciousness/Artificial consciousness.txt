@@ -4,6 +4,11 @@ yagaodirac
 twitter:yagaodirac
 github.com/yagaodirac/dirac-institute-of-deep-learning
 
+to do list:
+self awareness?
+health?
+
+
 2023 apr 15
 
 The human nervous system can be roughly approximated as a diffusion (the derivation process will be added later). If this diffusion runs infinite steps, is it a living consciousness?
@@ -35,9 +40,20 @@ If this model can only distill itself, it only builds shortcuts, it's not possib
 The last thing, where is this model used.
 The design is only about a inner latent representation, and how it's maintained, updated, used. When we humans want to interact with it, we still need language models to help translate our meaning to the latent representation this model understands, and then the final result translated into natural language so we understand.
 
+<update 2023 may 7. Let me paste a tweet from Yann LeCun>
+Yann LeCun
+@ylecun
+In many animal species, evolution encodes objectives.
+It is up to the individuals to figure out the behaviors that optimize these objectives.
 
+Encoding objectives rather than behaviors is much simpler, more efficient, and more adaptive way for evolution to specify complex behaviors.
 
+the same way it is much easier for human engineers to specify a loss function and rely on optimization for a system to perform perception or control than it is to design a perception or control system from scratch.
+</update 2023 may 7. Let me paste a tweet from Yann LeCun>
 
-
-
+<update 2023 may 12>
+https://www.youtube.com/watch?v=PdE-waSx-d8
+12:22 to 16:00
+Stephen Wolfram talked about the reducibility which is similar to the abstraction I mentioned in this article.
+</update 2023 may 12>
 
