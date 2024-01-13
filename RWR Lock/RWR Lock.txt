@@ -1,0 +1,27 @@
+I firstly posted this here:https://www.youtube.com/watch?v=lNPZV9Iqo3U
+
+In fact, I have an untested idea. Let's say, I have a group of threads, and a chunk of data. In any given time, no more than 1 thread can access it.
+2 flags for each thread, let's call them flags int[N], where N is the amount of threads.
+The process is like, you read every other's flag, they have to be unset. If you see any set flag, start over again.
+Then, all the flags are unset, and you set up your own flag.
+Then, read all other's flag again, if they are still unset, you can access the data chunk safely.
+If you see any set flag in the second round, unset your own flag and start over from the very beginning.
+Pseudo code:
+while(1){
+for( i=0; i <N; i++){
+if ((i != my_i)&& flags[i]){break} ;//where my_i is the index of this thread.
+flags[my_i] = true;
+if ((i != my_i)&& flags[i])
+{flags[my_i] = false; break;} ;//
+
+//now you can access the data chunk
+
+flags[my_i] = false; //Now you are leaving.
+return;//I mean, break both loops.
+}//for( i=0; i <N; i++)
+}//while(1)
+
+In this way, every critical chunk must have a correspoding flag vector, it can be any non-thread-safe container.
+
+Again, I didn't test it. 
+I'm yagaodirac on github. 
