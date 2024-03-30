@@ -1,0 +1,18 @@
+Hotfix about the new structure
+
+yagaodirac
+
+credit:
+(qq name 蓁吧 qq number 1340751192). He found a critical bug in my old design(2023 apr). Now you are reading the new version.
+
+twitter:yagaodirac
+github.com/yagaodirac/dirac-institute-of-deep-learning
+
+
+Last year (2023 apr), I invented the first version of artificial consciousness. Recently, I talked to my friend(qq name 蓁吧 qq number 1340751192)
+, he found a bug in the old structure. In the old structure, I force the only model to predict the critical number(s) into a given range(or ranges respectively), but the model must NOT predict that number(s). 
+In the new structure (pic 4), I added a new model(M2 in pic4).
+In normal cases, the M1 is in predicting mode(frozen), the M2 is in training mode. Every output of M1 and the critical numbers in the next tick are the training data for M2. In most cases, M2 only needs to be trained slightly a bit (according to my eyeball evaluation). When any part of the critical numbers are close to the boundary, we need to modify the M1 to make sure it haddle the critical numbers properly. It needs to store some input and output for the most recent 100 or 1000 ticks, so we can get training data from it. The method is, freeze M2, use M2 to do backward search, so we can get a proper output of M1 for the needed next-tick-critical-numbers. With input of M1 as input(not modified), and the result of backward search of the same tick as output, with such a training data, M1 is trained a bit. M1 also only needs slightly a bit training to work properly (according to my eyeball evaluation).
+It looks like a GAN with a diffusion model as the generator. In either mode, only 1 mode is in training mode.
+
+Because the M1 is also the same structure as the old version, it can also build up abstraction with the old trick. 
