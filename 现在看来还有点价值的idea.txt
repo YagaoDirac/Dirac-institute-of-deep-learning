@@ -213,7 +213,7 @@ WANN和一个相关的研究，神经网络的自行生长 https://arxiv.org/abs
 
 
 
-
+【【这一段是最早的草稿，详见文件夹 Length adaptive diffusion for text generation 】】
 序列长度自适应，搭配diffusion。(注意，每一个token背后是一个向量，在这儿用一个单独的字母表示）
 输入文本abc，重复一下，得到aabbcc，如果最后有一个结束符，也类似。甚至在开头还可以加一个开始。
 让nn去学aabbcc，可以用类似窗口尺寸=3的卷积一类的，学习的核心结构是diffusion。
